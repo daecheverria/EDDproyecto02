@@ -8,7 +8,7 @@ package javaapplication9;
  *
  * @author danie
  */
-public class JavaApplication9 {
+public class Csv {
 
     /**
      * @param args the command line arguments
