@@ -8,24 +8,24 @@ package javaapplication9;
  *
  * @author daniel
  */
-public class Persona {
+public class Cliente {
     private String ci;
-    private String primerNombre;
-    private String segundoNombre;
+    private String nombre;
+    private String apellido;
     private String email;
     private String genero;
-    private String Habitacion;
+    private String habitacion;
     private String celular;
     private String llegada;
     private String salida;
 
-    public Persona(String ci, String primerNombre, String segundoNombre, String email, String genero, String Habitacion, String celular, String llegada, String salida) {
+    public Cliente(String ci, String nombre, String apellido, String email, String genero, String habitacion, String celular, String llegada, String salida) {
         this.ci = ci;
-        this.primerNombre = primerNombre;
-        this.segundoNombre = segundoNombre;
+        this.nombre = nombre;
+        this.apellido = apellido;
         this.email = email;
         this.genero = genero;
-        this.Habitacion = Habitacion;
+        this.habitacion = habitacion;
         this.celular = celular;
         this.llegada = llegada;
         this.salida = salida;
@@ -35,12 +35,12 @@ public class Persona {
         return ci;
     }
 
-    public String getPrimerNombre() {
-        return primerNombre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getSegundoNombre() {
-        return segundoNombre;
+    public String getApellido() {
+        return apellido;
     }
 
     public String getEmail() {
@@ -52,7 +52,7 @@ public class Persona {
     }
 
     public String getHabitacion() {
-        return Habitacion;
+        return habitacion;
     }
 
     public String getCelular() {
@@ -71,12 +71,12 @@ public class Persona {
         this.ci = ci;
     }
 
-    public void setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
+    public void setNombre(String Nombre) {
+        this.nombre = nombre;
     }
 
-    public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public void setEmail(String email) {
@@ -87,8 +87,8 @@ public class Persona {
         this.genero = genero;
     }
 
-    public void TipoHabitacion(String Habitacion) {
-        this.Habitacion = Habitacion;
+    public void TipoHabitacion(String habitacion) {
+        this.habitacion = habitacion;
     }
 
     public void setCelular(String celular) {

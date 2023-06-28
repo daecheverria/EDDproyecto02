@@ -4,6 +4,10 @@
  */
 package javaapplication9;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author danie
@@ -14,7 +18,29 @@ public class Csv {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        String csvFile = "C:\\Users\\danie\\Downloads\\prueba.csv";
+        String line;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+
+                String ci = data[0];
+                String primerNombre = data[1];
+                String apellido = data[2];
+                String email = data[3];
+                String genero = data[4];
+                String llegada = data[5];
+                String habitacion = data[6];
+                String celular = null;
+                String salida = null;
+                Cliente cliente = new Cliente(ci, primerNombre, apellido, email, genero, habitacion, celular, llegada, salida);
+                System.out.println(cliente);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
-    
+
 }
