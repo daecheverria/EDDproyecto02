@@ -20,9 +20,14 @@ public class Csv {
     public static void main(String[] args) {
         String csvFile = "C:\\Users\\danie\\Downloads\\prueba.csv";
         String line;
-
+        boolean isFirstLine = true;
+        
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
                 String[] data = line.split(",");
 
                 String ci = data[0];

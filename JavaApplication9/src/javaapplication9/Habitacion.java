@@ -12,13 +12,21 @@ public class Habitacion {
     private String numeroHabitacion;
     private String tipoHabitacion;
     private String piso;
+    private Boolean ocupada;
 
-    public Habitacion(String numeroHabitacion, String tipoHabitacion, String piso) {
+    public Habitacion(String numeroHabitacion, String tipoHabitacion, String piso, Boolean ocupada) {
         this.numeroHabitacion = numeroHabitacion;
         this.tipoHabitacion = tipoHabitacion;
         this.piso = piso;
+        this.ocupada = ocupada;
     }
-
+     public boolean isOcupada() {
+        return ocupada;
+    }
+    
+    public void setOcupada(boolean ocupada) {
+        this.ocupada = ocupada;
+    }
     /**
      * @return the numeroHabitacion
      */
