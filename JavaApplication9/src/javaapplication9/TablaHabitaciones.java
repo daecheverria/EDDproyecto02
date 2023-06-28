@@ -42,7 +42,7 @@ public class TablaHabitaciones {
 
     public static class HashTable {
 
-        private static final int tamano = 300;
+        private static int tamano = 300;
         private Elemento[] tabla;
 
         public HashTable() {

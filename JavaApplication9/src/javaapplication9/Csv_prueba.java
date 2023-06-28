@@ -12,7 +12,7 @@ import java.io.IOException;
  *
  * @author danie
  */
-public class Csv {
+public class Csv_prueba {
 
     /**
      * @param args the command line arguments
