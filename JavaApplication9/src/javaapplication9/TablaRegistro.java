@@ -12,14 +12,15 @@ import java.io.IOException;
  *
  * @author daniel
  */
-public class TablaHabitaciones {
+public class TablaRegistro {
 
     public static void main(String[] args) {
-        String csvFile = "C:\\Users\\danie\\Downloads\\Booking_hotel - habitaciones.csv";
+        String csvFile = "C:\\Users\\danie\\Downloads\\Booking_hotel - estado.csv";
         String line;
         boolean isFirstLine = true;
-        HashTable habitacionesTabla = new HashTable();
+        HashTable registroTabla = new HashTable();
         
+                int i = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 if (isFirstLine) {
@@ -29,11 +30,21 @@ public class TablaHabitaciones {
                 String[] data = line.split(",");
 
                 String numeroHabitacion = data[0];
-                String tipoHabitacion = data[1];
-                String piso = data[2];
-                Boolean ocupada = false;
-                Habitacion habitacion = new Habitacion(numeroHabitacion, tipoHabitacion, piso, ocupada);
-                habitacionesTabla.agregar(numeroHabitacion, habitacion);
+                String nombre = data[1];
+                String apellido = data[2];
+                String email = data[3];
+                String genero = data[4];
+                String celular = data[5];
+                String llegada = data[6];
+                String salida = null;
+                String cedula = null;
+                if (numeroHabitacion != null && !numeroHabitacion.isEmpty()) {
+                    Cliente cliente = new Cliente(cedula, nombre, apellido, email, genero, numeroHabitacion, celular, llegada, salida);
+                    registroTabla.agregar(nombre, apellido, cliente);
+                    i += 1;
+                }
+                System.out.println(i);
+                
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -49,9 +60,9 @@ public class TablaHabitaciones {
             tabla = new Elemento[tamano];
         }
 
-        public void agregar(String key, Habitacion habitacion) {
-            int hash = getHash(key);
-            Elemento elemento = new Elemento(key, habitacion);
+        public void agregar(String nombre, String apellido, Cliente cliente) {
+            int hash = getHash(nombre, apellido);
+            Elemento elemento = new Elemento(nombre, apellido, cliente);
 
             if (tabla[hash] == null) {
                 tabla[hash] = elemento;
@@ -66,15 +77,15 @@ public class TablaHabitaciones {
             }
         }
 
-        public Habitacion get(String key) {
-            int hash = getHash(key);
+        public Cliente get(String nombre, String apellido) {
+            int hash = getHash(nombre, apellido);
 
             if (tabla[hash] != null) {
                 Elemento actual = tabla[hash];
 
                 while (actual != null) {
-                    if (actual.key.equals(key)) {
-                        return actual.habitacion;
+                    if (actual.nombre.equals(nombre) && actual.apellido.equals(apellido)) {
+                        return actual.cliente;
                     }
 
                     actual = actual.next;
@@ -84,20 +95,22 @@ public class TablaHabitaciones {
             return null;
         }
 
-        private int getHash(String key) {
-            int hash = key.hashCode() % tamano;
+        private int getHash(String nombre, String apellido) {
+            int hash = (nombre + apellido).hashCode() % tamano;
             return (hash < 0) ? hash + tamano : hash;
         }
 
         private class Elemento {
 
-            private String key;
-            private Habitacion habitacion;
+            private String nombre;
+            private String apellido;
+            private Cliente cliente;
             private Elemento next;
 
-            public Elemento(String key, Habitacion habitacion) {
-                this.key = key;
-                this.habitacion = habitacion;
+            public Elemento(String nombre, String apellido, Cliente cliente) {
+                this.nombre = nombre;
+                this.apellido = apellido;
+                this.cliente = cliente;
             }
         }
     }
