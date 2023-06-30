@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package javaapplication9;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -15,12 +14,13 @@ import java.io.IOException;
 public class TablaRegistro {
 
     public static void main(String[] args) {
+        TablaHabitaciones habitaciones = new TablaHabitaciones();
+        habitaciones.CrearTablaHab();
         String csvFile = "C:\\Users\\danie\\Downloads\\Booking_hotel - estado.csv";
         String line;
         boolean isFirstLine = true;
         HashTable registroTabla = new HashTable();
-        
-                int i = 0;
+
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 if (isFirstLine) {
@@ -38,13 +38,17 @@ public class TablaRegistro {
                 String llegada = data[6];
                 String salida = null;
                 String cedula = null;
+
                 if (numeroHabitacion != null && !numeroHabitacion.isEmpty()) {
+                Habitacion habitacion = habitaciones.get(numeroHabitacion);
+                
+                if (habitacion != null && !habitacion.isOcupada()) {
+                    habitacion.setOcupada(true);
                     Cliente cliente = new Cliente(cedula, nombre, apellido, email, genero, numeroHabitacion, celular, llegada, salida);
                     registroTabla.agregar(nombre, apellido, cliente);
-                    i += 1;
                 }
-                System.out.println(i);
-                
+
+            }
             }
         } catch (IOException e) {
             e.printStackTrace();

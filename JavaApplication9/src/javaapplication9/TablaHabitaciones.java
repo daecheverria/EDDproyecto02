@@ -13,13 +13,13 @@ import java.io.IOException;
  * @author daniel
  */
 public class TablaHabitaciones {
-
-    public static void main(String[] args) {
+    private HashTable habitacionesTabla;
+    public void CrearTablaHab() {
         String csvFile = "C:\\Users\\danie\\Downloads\\Booking_hotel - habitaciones.csv";
         String line;
         boolean isFirstLine = true;
-        HashTable habitacionesTabla = new HashTable();
-        
+        habitacionesTabla = new HashTable();
+
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 if (isFirstLine) {
@@ -38,6 +38,10 @@ public class TablaHabitaciones {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Habitacion get(String numeroHabitacion) {
+        return habitacionesTabla.get(numeroHabitacion);
     }
 
     public static class HashTable {
