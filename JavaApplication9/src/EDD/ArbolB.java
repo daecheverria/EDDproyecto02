@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package EDD;
-import java.util.ArrayList;
 
 /**
  *
@@ -12,11 +11,13 @@ import java.util.ArrayList;
 public class ArbolB {
 
     private NodoABB root;
-
+    
+    //constructor de la clase
     public ArbolB() {
         root = null;
     }
 
+    //Metodos de la clase
     public void insert(int data, String name, String lastname) {
         if (root == null) {
             root = new NodoABB(data, name, lastname);
@@ -52,7 +53,7 @@ public class ArbolB {
             return null;
         }
         
-       
+       //busqueda con complejidad aproximada de O(log(n))
         NodoABB currentNode = root;
         while (currentNode != null) {
             if (data == currentNode.getData()) {
@@ -66,23 +67,5 @@ public class ArbolB {
 
         return currentNode;
     }
-
-    public ArrayList<Integer> traverseInOrder() {
-        ArrayList<Integer> list = new ArrayList<>();
-        traverseInOrder(root, list);
-        return list;
-    }
-
-    private void traverseInOrder(NodoABB node, ArrayList<Integer> list) {
-        if (node == null) {
-            return;
-        }
-
-        traverseInOrder(node.getLeft(), list);
-        list.add(node.getData());
-        traverseInOrder(node.getRight(), list);
-    }
-
-    
 }
 
