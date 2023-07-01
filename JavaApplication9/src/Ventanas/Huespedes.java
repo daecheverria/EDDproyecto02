@@ -47,7 +47,7 @@ public class Huespedes extends javax.swing.JFrame {
 
         Titulo.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         Titulo.setText("Burqueda de Huespedes");
-        jPanel1.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 40, -1, -1));
+        jPanel1.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
         Volver.setText("Volver");
         jPanel1.add(Volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, 90, 30));

@@ -4,6 +4,9 @@
  */
 package Ventanas;
 
+import EDD.ArbolB;
+import EDD.NodoABB;
+
 /**
  *
  * @author Moises Loita
@@ -45,7 +48,7 @@ public class Historico extends javax.swing.JFrame {
 
         TITULO.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
         TITULO.setText("Historico de Habitaciones");
-        jPanel1.add(TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 30, -1, -1));
+        jPanel1.add(TITULO, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, -1, -1));
 
         ingresa_num_hab.setText("Ingresa el numero de habitacion:");
         jPanel1.add(ingresa_num_hab, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, 20));
@@ -58,15 +61,27 @@ public class Historico extends javax.swing.JFrame {
         jPanel1.add(num_hab, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 180, -1));
 
         buscar_hab.setText("Buscar");
+        buscar_hab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscar_habActionPerformed(evt);
+            }
+        });
         jPanel1.add(buscar_hab, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
 
+        datos_hab_buscado.setEditable(false);
         datos_hab_buscado.setColumns(20);
         datos_hab_buscado.setRows(5);
+        datos_hab_buscado.setFocusable(false);
         jScrollPane1.setViewportView(datos_hab_buscado);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 230, 150));
 
         volver.setText("Volver");
+        volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverActionPerformed(evt);
+            }
+        });
         jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 300, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 350));
@@ -77,6 +92,31 @@ public class Historico extends javax.swing.JFrame {
     private void num_habActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_num_habActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_num_habActionPerformed
+
+    private void buscar_habActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_habActionPerformed
+        
+        datos_hab_buscado.setText("");
+        String hab= num_hab.getText().replaceAll("\\s+", "");
+        try{
+            int habitacion = Integer.parseInt(hab);
+            ArbolB database = new ArbolB();
+            database.Addsimpledatabase(database, "C:\\Users\\olvei\\Downloads\\Booking_hotel - Historico.csv");
+            NodoABB findings = database.search(habitacion);
+        
+            String names = findings.Getnames(findings);
+            datos_hab_buscado.append(names);
+            
+        }catch (Exception e){
+            datos_hab_buscado.setText("El valor introducido no se encontró\nen la base de datos");
+        }
+        
+        
+        
+    }//GEN-LAST:event_buscar_habActionPerformed
+
+    private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+        //code here
+    }//GEN-LAST:event_volverActionPerformed
 
     /**
      * @param args the command line arguments

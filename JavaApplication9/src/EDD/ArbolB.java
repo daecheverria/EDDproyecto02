@@ -4,6 +4,11 @@
  */
 package EDD;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javaapplication9.Historial;
+
 /**
  *
  * @author AntonioOlveira
@@ -100,8 +105,97 @@ public class ArbolB {
                 currentNode = currentNode.getRight();
             }
         }
-
+        if (currentNode.getNames() == null) {
+            return null;
+        }
+        
         return currentNode;
+    }
+    public void Addsimpledatabase(ArbolB arbol, String direction){
+        String file = direction;
+        String line;
+        boolean isFirstLine = true;
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            while ((line = br.readLine()) != null) {
+               
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+                String[] data = line.split(",");
+
+                String ci = data[0];
+                String primerNombre = data[1];
+                String apellido = data[2];
+                String email = data[3];
+                String genero = data[4];
+                String llegada = data[5];
+                int habitacion = Integer.parseInt(data[6]);
+                
+                Historial historial = new Historial(ci, primerNombre, apellido, email, genero, llegada, habitacion);
+                arbol.simpleinsert(historial.getHabitacion(), historial.getNombre(), historial.getApellido());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            
+        }
+    }
+    public void Addcomplexdatabase(ArbolB arbol, String direction){
+        String file = direction;
+        String line;
+        boolean isFirstLine = true;
+        
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            while ((line = br.readLine()) != null) {
+               
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+                String[] data = line.split(",");
+                try{
+                    String[] strci = data[0].split(",");
+                String strci2= "";
+                for (String n : strci) {
+                    strci2 += n;
+                }
+                int ci = Integer.parseInt(strci2);
+                String nombre = data[1];
+                String apellido = data[2];
+                String correo = data[3];
+                String genero = data[4];
+                String tipo_hab = data[5];
+                String celular = data[6];
+                String llegada = data[7];
+                String salida = data[8];
+                arbol.complexinsert(ci, nombre, apellido, correo, genero, tipo_hab, celular, llegada, salida);
+                
+                }catch (Exception e){
+                    String[] strci = data[0].split("\\.");
+                    String strci2= "";
+                    for (String n : strci) {
+                        strci2 += n;
+                    }
+                    int ci = Integer.parseInt(strci2);
+                    
+                    String nombre = data[1];
+                    String apellido = data[2];
+                    String correo = data[3];
+                    String genero = data[4];
+                    String tipo_hab = data[5];
+                    String celular = data[6];
+                    String llegada = data[7];
+                    String salida = data[8];
+                arbol.complexinsert(ci, nombre, apellido, correo, genero, tipo_hab, celular, llegada, salida);
+                }
+                
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+        }
     }
 }
 

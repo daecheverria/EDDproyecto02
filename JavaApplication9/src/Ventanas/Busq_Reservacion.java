@@ -4,6 +4,9 @@
  */
 package Ventanas;
 
+import EDD.ArbolB;
+import EDD.NodoABB;
+
 /**
  *
  * @author Moises Loita
@@ -48,13 +51,26 @@ public class Busq_Reservacion extends javax.swing.JFrame {
 
         intro_ci_reserv.setText("Introduzca la cedula del cliente que reservo:");
         jPanel1.add(intro_ci_reserv, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
+
+        input_ci.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                input_ciActionPerformed(evt);
+            }
+        });
         jPanel1.add(input_ci, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 210, -1));
 
         buscar.setText("Buscar");
+        buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarActionPerformed(evt);
+            }
+        });
         jPanel1.add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
 
+        datos_reservacion.setEditable(false);
         datos_reservacion.setColumns(20);
         datos_reservacion.setRows(5);
+        datos_reservacion.setFocusable(false);
         jScrollPane1.setViewportView(datos_reservacion);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 210, 160));
@@ -66,6 +82,27 @@ public class Busq_Reservacion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void input_ciActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_ciActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_input_ciActionPerformed
+
+    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        datos_reservacion.setText("");
+        String hab= input_ci.getText().replaceAll("\\s+", "");
+        try{
+            int habitacion = Integer.parseInt(hab);
+            ArbolB database = new ArbolB();
+            database.Addcomplexdatabase(database, "C:\\Users\\olvei\\Downloads\\Booking_hotel - reservas.csv");
+            NodoABB findings = database.search(habitacion);
+        
+            String names = findings.Getnames(findings);
+            datos_reservacion.append(names);
+            
+        }catch (Exception e){
+            datos_reservacion.setText("El valor introducido no se encontró\nen la base de datos");
+        }
+    }//GEN-LAST:event_buscarActionPerformed
 
     /**
      * @param args the command line arguments

@@ -151,14 +151,15 @@ public class NodoABB {
     }
     
     //metodo temporal de prueba
-    public void printnames(NodoABB node){
+    public String Getnames(NodoABB node){
         Lista names = new Lista();
         names = node.getNames();
         Lista lastnames = new Lista();
         lastnames = node.getLastnames();
         Nodo currentname = names.getpFirst();
+        String names_return = "";
         Nodo currentlastname = lastnames.getpFirst();
-        System.out.println("Historial de hospedaje en la habitacion seleccionada: ");
+//        System.out.println("Historial de hospedaje en la habitacion seleccionada: ");
         while (true){
             
             if (currentname == null){
@@ -166,11 +167,14 @@ public class NodoABB {
             }else if(currentlastname == null){
                 break;
             }
-            System.out.println(currentname.getInfo() + " " + currentlastname.getInfo());
+//            System.out.println(currentname.getInfo() + " " + currentlastname.getInfo());
+            names_return += (currentname.getInfo() + " " + currentlastname.getInfo() + " ");
+            names_return += "\n";
             
             currentname = currentname.getpNext();
             currentlastname = currentlastname.getpNext();
         }
+        return names_return;
             
     }
     
