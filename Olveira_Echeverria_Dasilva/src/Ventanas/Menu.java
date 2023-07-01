@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 /**
  *
- * @author Maria
+ * @author Maria y Antonio
  */
 public class Menu extends javax.swing.JFrame {
     private TablaRegistro registro;
@@ -141,7 +141,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_reservasActionPerformed
 
     private void check_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_inActionPerformed
-        check_in v5 = new check_in(this);
+        check_in v5 = new check_in(this, database1);
         v5.setVisible(true);
     }//GEN-LAST:event_check_inActionPerformed
 
