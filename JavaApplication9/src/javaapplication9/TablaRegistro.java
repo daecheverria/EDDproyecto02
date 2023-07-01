@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package javaapplication9;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -40,15 +41,15 @@ public class TablaRegistro {
                 String cedula = null;
 
                 if (numeroHabitacion != null && !numeroHabitacion.isEmpty()) {
-                Habitacion habitacion = habitaciones.get(numeroHabitacion);
-                
-                if (habitacion != null && !habitacion.isOcupada()) {
-                    habitacion.setOcupada(true);
-                    Cliente cliente = new Cliente(cedula, nombre, apellido, email, genero, numeroHabitacion, celular, llegada, salida);
-                    registroTabla.agregar(nombre, apellido, cliente);
-                }
+                    Habitacion habitacion = habitaciones.get(numeroHabitacion);
 
-            }
+                    if (habitacion != null && !habitacion.isOcupada()) {
+                        habitacion.setOcupada(true);
+                        Cliente cliente = new Cliente(cedula, nombre, apellido, email, genero, numeroHabitacion, celular, llegada, salida);
+                        registroTabla.agregar(nombre, apellido, cliente);
+                    }
+
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -117,6 +118,25 @@ public class TablaRegistro {
                 this.cliente = cliente;
             }
         }
+
+        public String obtenerNumeroHabitacion(String nombre, String apellido) {
+            int hash = getHash(nombre, apellido);
+
+            if (tabla[hash] != null) {
+                Elemento actual = tabla[hash];
+
+                while (actual != null) {
+                    if (actual.cliente.getNombre().equals(nombre) && actual.cliente.getApellido().equals(apellido)) {
+                        return actual.cliente.getHabitacion();
+                    }
+
+                    actual = actual.next;
+                }
+            }
+
+            return null;
+        }
+
     }
 
 }
