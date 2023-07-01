@@ -2,26 +2,30 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaapplication9;
+package EDD;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  *
  * @author daniel
  */
 public class TablaRegistro {
-
-    public static void main(String[] args) {
+    private HashTable registroTabla;
+    public void CrearTablaReg() {
         TablaHabitaciones habitaciones = new TablaHabitaciones();
         habitaciones.CrearTablaHab();
-        String csvFile = "C:\\Users\\olvei\\Downloads\\Booking_hotel - estado.csv";
+        String projectPath = System.getProperty("user.dir");
+        String csvFile = "Booking_hotel - estado.csv";
+        Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
         String line;
         boolean isFirstLine = true;
-        HashTable registroTabla = new HashTable();
+        registroTabla = new HashTable();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath.toString()))) {
             while ((line = br.readLine()) != null) {
                 if (isFirstLine) {
                     isFirstLine = false;
@@ -54,7 +58,9 @@ public class TablaRegistro {
             e.printStackTrace();
         }
     }
-
+    public Cliente get(String nombre, String apellido) {
+        return registroTabla.get(nombre,apellido);
+    }
     public static class HashTable {
 
         private static int tamano = 300;

@@ -6,6 +6,8 @@ package Ventanas;
 
 import EDD.ArbolB;
 import EDD.NodoABB;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  *
@@ -74,7 +76,7 @@ public class Historico extends javax.swing.JFrame {
         datos_hab_buscado.setFocusable(false);
         jScrollPane1.setViewportView(datos_hab_buscado);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 230, 150));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 230, 150));
 
         volver.setText("Volver");
         volver.addActionListener(new java.awt.event.ActionListener() {
@@ -100,14 +102,17 @@ public class Historico extends javax.swing.JFrame {
         try{
             int habitacion = Integer.parseInt(hab);
             ArbolB database = new ArbolB();
-            //Es necesario cambiar la direccion del documento de donde se va a extraer la informacion a la de su computador
-            database.Addsimpledatabase(database, "C:\\Users\\olvei\\Downloads\\Booking_hotel - Historico.csv");
+            String projectPath = System.getProperty("user.dir");
+            String csvFile = "Booking_hotel - historico.csv";
+            Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
+            database.Addsimpledatabase(database, csvFilePath.toString());
             NodoABB findings = database.search(habitacion);
         
             String names = findings.Getnames(findings);
             datos_hab_buscado.append(names);
             
         }catch (Exception e){
+            System.out.println(e);
             datos_hab_buscado.setText("El valor introducido no se encontró\nen la base de datos");
         }
         

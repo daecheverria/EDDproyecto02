@@ -7,7 +7,6 @@ package EDD;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import javaapplication9.Historial;
 
 /**
  *

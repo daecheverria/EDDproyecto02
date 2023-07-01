@@ -4,6 +4,9 @@
  */
 package Ventanas;
 
+import EDD.Cliente;
+import EDD.TablaRegistro;
+
 /**
  *
  * @author Maria
@@ -11,13 +14,15 @@ package Ventanas;
 public class Huespedes extends javax.swing.JFrame {
 
     public static Menu v1;
+    private TablaRegistro registro;
     
-    public Huespedes(Menu v1) {
+    public Huespedes(Menu v1,TablaRegistro registro ) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.registro = registro;
     }
 
     /**
@@ -66,6 +71,11 @@ public class Huespedes extends javax.swing.JFrame {
         jPanel1.add(input_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 210, -1));
 
         jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, -1, -1));
 
         Datos_Huesped_Buscado.setEditable(false);
@@ -86,6 +96,21 @@ public class Huespedes extends javax.swing.JFrame {
         Menu ventana1 = new Menu();
         ventana1.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Datos_Huesped_Buscado.setText("");
+        String nombre= input_nombre.getText().replaceAll("\\s+", "");
+        String apellido= input_apellido.getText().replaceAll("\\s+", "");
+        try{
+           Cliente cliente =registro.get(nombre,apellido);
+           String NumHabitacion = cliente.getHabitacion();
+           Datos_Huesped_Buscado.append(NumHabitacion);
+            
+        }catch (Exception e){
+            Datos_Huesped_Buscado.setText("El nombre introducido no se encontró\nen la base de datos");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,7 +142,8 @@ public class Huespedes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Huespedes(v1).setVisible(true);
+                TablaRegistro registro = new TablaRegistro();  // Crear una instancia de TablaRegistro si no la tienes ya
+                new Huespedes(v1, registro).setVisible(true);
             }
         });
     }
