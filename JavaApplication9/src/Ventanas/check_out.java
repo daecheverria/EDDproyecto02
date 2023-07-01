@@ -6,7 +6,7 @@ package Ventanas;
 
 /**
  *
- * @author Moises Loita
+ * @author Maria
  */
 public class check_out extends javax.swing.JFrame {
     
@@ -60,6 +60,11 @@ public class check_out extends javax.swing.JFrame {
         jPanel1.add(input_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 230, -1));
 
         volver.setText("Volver");
+        volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverActionPerformed(evt);
+            }
+        });
         jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
 
         Info_hab_asig.setColumns(20);
@@ -83,6 +88,12 @@ public class check_out extends javax.swing.JFrame {
     private void input_nombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_input_nombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_input_nombreActionPerformed
+
+    private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+        this.setVisible(false);
+        Menu ventana1 = new Menu();
+        ventana1.setVisible(true);
+    }//GEN-LAST:event_volverActionPerformed
 
     /**
      * @param args the command line arguments

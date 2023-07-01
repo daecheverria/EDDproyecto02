@@ -6,7 +6,7 @@ package Ventanas;
 
 /**
  *
- * @author Moises Loita
+ * @author Maria
  */
 public class Huespedes extends javax.swing.JFrame {
 
@@ -50,6 +50,11 @@ public class Huespedes extends javax.swing.JFrame {
         jPanel1.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, -1, -1));
 
         Volver.setText("Volver");
+        Volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VolverActionPerformed(evt);
+            }
+        });
         jPanel1.add(Volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, 90, 30));
 
         Introduzaca_nombre.setText("Introduzca el nombre del Huesped:");
@@ -63,8 +68,10 @@ public class Huespedes extends javax.swing.JFrame {
         jButton1.setText("Buscar");
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, -1, -1));
 
+        Datos_Huesped_Buscado.setEditable(false);
         Datos_Huesped_Buscado.setColumns(20);
         Datos_Huesped_Buscado.setRows(5);
+        Datos_Huesped_Buscado.setFocusable(false);
         jScrollPane1.setViewportView(Datos_Huesped_Buscado);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 260, 190));
@@ -73,6 +80,12 @@ public class Huespedes extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
+        this.setVisible(false);
+        Menu ventana1 = new Menu();
+        ventana1.setVisible(true);
+    }//GEN-LAST:event_VolverActionPerformed
 
     /**
      * @param args the command line arguments

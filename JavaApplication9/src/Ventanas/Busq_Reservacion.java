@@ -9,7 +9,7 @@ import EDD.NodoABB;
 
 /**
  *
- * @author Moises Loita
+ * @author Maria
  */
 public class Busq_Reservacion extends javax.swing.JFrame {
 
@@ -39,6 +39,7 @@ public class Busq_Reservacion extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         datos_reservacion = new javax.swing.JTextArea();
         volver = new javax.swing.JButton();
+        intro_ci_reserv1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -49,7 +50,7 @@ public class Busq_Reservacion extends javax.swing.JFrame {
         Titulo.setText("Busqueda de Reservacion");
         jPanel1.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 40, -1, -1));
 
-        intro_ci_reserv.setText("Introduzca la cedula del cliente que reservo:");
+        intro_ci_reserv.setText("(Sin letras ni caracteres especiales)");
         jPanel1.add(intro_ci_reserv, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, -1));
 
         input_ci.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +77,15 @@ public class Busq_Reservacion extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 120, 210, 160));
 
         volver.setText("Volver");
+        volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volverActionPerformed(evt);
+            }
+        });
         jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 80, -1));
+
+        intro_ci_reserv1.setText("Introduzca la cedula del cliente que reservo:");
+        jPanel1.add(intro_ci_reserv1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 340));
 
@@ -88,11 +97,14 @@ public class Busq_Reservacion extends javax.swing.JFrame {
     }//GEN-LAST:event_input_ciActionPerformed
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+        
         datos_reservacion.setText("");
         String hab= input_ci.getText().replaceAll("\\s+", "");
         try{
             int habitacion = Integer.parseInt(hab);
             ArbolB database = new ArbolB();
+            
+            //Es necesario cambiar la direccion del documento de donde se va a extraer la informacion a la de su computador
             database.Addcomplexdatabase(database, "C:\\Users\\olvei\\Downloads\\Booking_hotel - reservas.csv");
             NodoABB findings = database.search(habitacion);
         
@@ -103,6 +115,12 @@ public class Busq_Reservacion extends javax.swing.JFrame {
             datos_reservacion.setText("El valor introducido no se encontró\nen la base de datos");
         }
     }//GEN-LAST:event_buscarActionPerformed
+
+    private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
+        this.setVisible(false);
+        Menu ventana1 = new Menu();
+        ventana1.setVisible(true);
+    }//GEN-LAST:event_volverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +164,7 @@ public class Busq_Reservacion extends javax.swing.JFrame {
     private javax.swing.JTextArea datos_reservacion;
     private javax.swing.JTextField input_ci;
     private javax.swing.JLabel intro_ci_reserv;
+    private javax.swing.JLabel intro_ci_reserv1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton volver;

@@ -6,7 +6,7 @@ package Ventanas;
 
 /**
  *
- * @author Moises Loita
+ * @author Maria
  */
 public class Menu extends javax.swing.JFrame {
 

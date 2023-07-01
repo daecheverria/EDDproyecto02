@@ -9,7 +9,7 @@ import EDD.NodoABB;
 
 /**
  *
- * @author Moises Loita
+ * @author Maria
  */
 public class Historico extends javax.swing.JFrame {
 
@@ -100,6 +100,7 @@ public class Historico extends javax.swing.JFrame {
         try{
             int habitacion = Integer.parseInt(hab);
             ArbolB database = new ArbolB();
+            //Es necesario cambiar la direccion del documento de donde se va a extraer la informacion a la de su computador
             database.Addsimpledatabase(database, "C:\\Users\\olvei\\Downloads\\Booking_hotel - Historico.csv");
             NodoABB findings = database.search(habitacion);
         
@@ -115,7 +116,9 @@ public class Historico extends javax.swing.JFrame {
     }//GEN-LAST:event_buscar_habActionPerformed
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
-        //code here
+        this.setVisible(false);
+        Menu ventana1 = new Menu();
+        ventana1.setVisible(true);
     }//GEN-LAST:event_volverActionPerformed
 
     /**
