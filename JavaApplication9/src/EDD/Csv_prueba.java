@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
-package javaapplication9;
+package EDD;
 
+import EDD.Cliente;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,7 +19,7 @@ public class Csv_prueba {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        String csvFile = "C:\\Users\\olvei\\Downloads\\Booking_hotel - reservas.csv";
+        String csvFile = "C:\\Users\\danie\\Downloads\\Booking_hotel - reservas.csv";
         String line;
         boolean isFirstLine = true;
         

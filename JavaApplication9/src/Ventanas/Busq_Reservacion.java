@@ -6,6 +6,8 @@ package Ventanas;
 
 import EDD.ArbolB;
 import EDD.NodoABB;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  *
@@ -103,9 +105,10 @@ public class Busq_Reservacion extends javax.swing.JFrame {
         try{
             int habitacion = Integer.parseInt(hab);
             ArbolB database = new ArbolB();
-            
-            //Es necesario cambiar la direccion del documento de donde se va a extraer la informacion a la de su computador
-            database.Addcomplexdatabase(database, "C:\\Users\\olvei\\Downloads\\Booking_hotel - reservas.csv");
+            String projectPath = System.getProperty("user.dir");
+            String csvFile = "Booking_hotel - reservas.csv";
+            Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
+            database.Addcomplexdatabase(database, csvFilePath.toString());
             NodoABB findings = database.search(habitacion);
         
             String names = findings.Getnames(findings);

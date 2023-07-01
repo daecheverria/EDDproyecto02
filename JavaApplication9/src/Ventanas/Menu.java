@@ -4,15 +4,19 @@
  */
 package Ventanas;
 
+import EDD.TablaRegistro;
+
 /**
  *
  * @author Maria
  */
 public class Menu extends javax.swing.JFrame {
-
+    private TablaRegistro registro;
     // Colocar aqui todas las estructuras de datos public static para que puedan ser utilizadas en todas las ventanas
     public Menu() {
         initComponents();
+        registro = new TablaRegistro();
+        registro.CrearTablaReg();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -99,7 +103,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void HuespedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HuespedesActionPerformed
-        Huespedes v2 = new Huespedes(this);
+        Huespedes v2 = new Huespedes(this, registro);
         v2.setVisible(true);
     }//GEN-LAST:event_HuespedesActionPerformed
 

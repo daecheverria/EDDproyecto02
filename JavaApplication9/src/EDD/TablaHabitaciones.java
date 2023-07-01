@@ -2,11 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaapplication9;
+package EDD;
 
+import EDD.Habitacion;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  *
@@ -15,12 +18,14 @@ import java.io.IOException;
 public class TablaHabitaciones {
     private HashTable habitacionesTabla;
     public void CrearTablaHab() {
-        String csvFile = "C:\\Users\\olvei\\Downloads\\Booking_hotel - habitaciones.csv";
+        String projectPath = System.getProperty("user.dir");
+        String csvFile = "Booking_hotel - habitaciones.csv";
+        Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
         String line;
         boolean isFirstLine = true;
         habitacionesTabla = new HashTable();
 
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath.toString()))) {
             while ((line = br.readLine()) != null) {
                 if (isFirstLine) {
                     isFirstLine = false;
