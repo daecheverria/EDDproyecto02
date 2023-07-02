@@ -7,6 +7,7 @@ package Ventanas;
 import EDD.Cliente;
 import EDD.TablaHabitaciones;
 import EDD.TablaRegistro;
+import EDD.ArbolB;
 
 /**
  *
@@ -17,14 +18,16 @@ public class check_out extends javax.swing.JFrame {
     public static Menu v1;
     private TablaRegistro registro;
     private TablaHabitaciones TablaHab;
+    private ArbolB database;
 
-    public check_out(Menu v1, TablaRegistro registro, TablaHabitaciones TablaHab1) {
+    public check_out(Menu v1, TablaRegistro registro, TablaHabitaciones TablaHab1, ArbolB database) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.registro = registro;
+        this.database = database;
     }
 
     /**
@@ -109,7 +112,7 @@ public class check_out extends javax.swing.JFrame {
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         this.setVisible(false);
-        Menu ventana1 = new Menu();
+        Menu ventana1 = new Menu(database);
         ventana1.setVisible(true);
     }//GEN-LAST:event_volverActionPerformed
 
@@ -120,11 +123,16 @@ public class check_out extends javax.swing.JFrame {
         try {
             Cliente cliente = registro.get(nombre, apellido);
             String NumHabitacion = cliente.getHabitacion();
+            
             TablaHab = TablaHabitaciones.getInstancia();
             TablaHab.getHabitacionesTabla();
+            database.simpleinsert(Integer.parseInt(NumHabitacion), nombre, apellido);
+            
             TablaHab.liberarHabitacion(NumHabitacion);
             registro.eliminar(nombre, apellido);
             String cedula = cliente.getCi();
+            
+            
             
             Info_hab_asig.setText("Se ha realizado el check out del huesped exitosamente");
         } catch (Exception e) {
@@ -166,7 +174,8 @@ public class check_out extends javax.swing.JFrame {
             public void run() {
                 TablaRegistro registro = new TablaRegistro();
                 TablaHabitaciones TablaHab = new TablaHabitaciones();
-                new check_out(v1, registro, TablaHab);
+                ArbolB database = new ArbolB();
+                new check_out(v1, registro, TablaHab, database);
             }
         });
     }

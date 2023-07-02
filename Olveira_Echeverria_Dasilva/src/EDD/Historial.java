@@ -19,6 +19,7 @@ public class Historial {
     private String llegada;
     private int habitacion;
 
+    //constructor de la clase
     public Historial(String ci, String nombre, String apellido, String email, String genero, String llegada, int habitacion) {
         this.ci = ci;
         this.nombre = nombre;
@@ -29,6 +30,7 @@ public class Historial {
         this.habitacion = habitacion;
     }
 
+    //getters and setters
     public String getCi() {
         return ci;
     }

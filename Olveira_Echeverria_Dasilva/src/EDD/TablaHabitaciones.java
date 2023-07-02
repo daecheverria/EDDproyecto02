@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 public class TablaHabitaciones {
     private static TablaHabitaciones instancia;
     private HashTableH habitacionesTabla;
-//metodo para agregar los datos a la tabla
+
     private void CrearTablaHab() {
         String projectPath = System.getProperty("user.dir");
         String csvFile = "Booking_hotel - habitaciones.csv";
@@ -46,7 +46,6 @@ public class TablaHabitaciones {
             e.printStackTrace();
         }
     }
-    //Metodo para que solo haya una instancia de la tabla y no se cree una nueva en cada ventana
     public static TablaHabitaciones getInstancia() {
         if (instancia == null) {
             instancia = new TablaHabitaciones();
@@ -54,16 +53,14 @@ public class TablaHabitaciones {
         }
         return instancia;
     }
-    //metodo para acceder a la tabla
     public HashTableH getHabitacionesTabla() {
         return habitacionesTabla;
     }
-    //metodo para obtener una habitacion a partir de un numero
+    
     public Habitacion get(String numeroHabitacion) {
         return habitacionesTabla.get(numeroHabitacion);
 
     }
-    //metodo para encontrar una habitacion desocupada del tipo indicado
      public Habitacion buscarHabitacionDisponible(String tipoHabitacion) {
         for (Elemento elemento : habitacionesTabla.tabla) {
             Elemento actual = elemento;
@@ -80,7 +77,6 @@ public class TablaHabitaciones {
 
         return null;
     }
-    //metodo para que una habitacion ocupada especifica pase a estar libre
     public Habitacion liberarHabitacion(String numeroHabitacion) {
     for (Elemento elemento : habitacionesTabla.tabla) {
         Elemento actual = elemento;
@@ -98,7 +94,7 @@ public class TablaHabitaciones {
     return null;
 }
 
-      //constructor de la tabla
+     
     public static class HashTableH {
 
         private static int tamano = 300;
@@ -107,7 +103,7 @@ public class TablaHabitaciones {
         public HashTableH() {
             tabla = new Elemento[tamano];
         }
-//agregar un elemento a la tabla
+
         public void agregar(String key, Habitacion habitacion) {
             int hash = getHash(key);
             Elemento elemento = new Elemento(key, habitacion);
@@ -124,7 +120,7 @@ public class TablaHabitaciones {
                 actual.next = elemento;
             }
         }
-//obtener un elemento de la tabla
+
         public Habitacion get(String key) {
             int hash = getHash(key);
 
@@ -142,7 +138,7 @@ public class TablaHabitaciones {
 
             return null;
         }
-//obtener valor unico
+
         private int getHash(String key) {
             int hash = key.hashCode() % tamano;
             return (hash < 0) ? hash + tamano : hash;

@@ -18,7 +18,7 @@ public class Cliente {
     private String celular;
     private String llegada;
     private String salida;
-//constructor
+
     public Cliente(String ci, String nombre, String apellido, String email, String genero, String habitacion, String celular, String llegada, String salida) {
         this.ci = ci;
         this.nombre = nombre;

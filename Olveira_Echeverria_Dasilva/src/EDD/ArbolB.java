@@ -22,6 +22,8 @@ public class ArbolB {
     }
 
     //Metodos de la clase
+    
+    //Metodo de insercion
     public void simpleinsert(int data, String name, String lastname) {
         if (root == null) {
             root = new NodoABB(data, name, lastname);
@@ -51,6 +53,7 @@ public class ArbolB {
             }
         }
     }
+    
     public void complexinsert(int data, String name, String lastname, String correo, String genero, String tipo_hab, String celular, String llegada, String salida) {
         if (root == null) {
             root = new NodoABB(data, name, lastname, correo, genero, tipo_hab, celular, llegada, salida);
@@ -114,7 +117,7 @@ public class ArbolB {
         return currentNode;
     }
     
-    
+    //Metodos que cargan los datos provenientes de los archivos csv al arbol
     public void Addsimpledatabase(ArbolB arbol, String direction){
         String file = direction;
         String line;

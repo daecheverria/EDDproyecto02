@@ -6,7 +6,7 @@ package Ventanas;
 
 import EDD.Cliente;
 import EDD.TablaRegistro;
-
+import EDD.ArbolB;
 /**
  *
  * @author Maria
@@ -15,14 +15,16 @@ public class Huespedes extends javax.swing.JFrame {
 
     public static Menu v1;
     private TablaRegistro registro;
+    private ArbolB database;
     
-    public Huespedes(Menu v1,TablaRegistro registro ) {
+    public Huespedes(Menu v1,TablaRegistro registro, ArbolB database) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.registro = registro;
+        this.database = database;
     }
 
     /**
@@ -101,7 +103,7 @@ public class Huespedes extends javax.swing.JFrame {
 
     private void VolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VolverActionPerformed
         this.setVisible(false);
-        Menu ventana1 = new Menu();
+        Menu ventana1 = new Menu(database);
         ventana1.setVisible(true);
     }//GEN-LAST:event_VolverActionPerformed
 
@@ -151,7 +153,8 @@ public class Huespedes extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 TablaRegistro registro = new TablaRegistro();  
-                new Huespedes(v1, registro).setVisible(true);
+                ArbolB database = new ArbolB();
+                new Huespedes(v1, registro, database).setVisible(true);
             }
         });
     }

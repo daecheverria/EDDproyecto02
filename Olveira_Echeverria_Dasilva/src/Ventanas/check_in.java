@@ -23,8 +23,9 @@ public class check_in extends javax.swing.JFrame {
     private TablaRegistro registro;
     private TablaHabitaciones TablaHab;
     private ArbolB checkedin;
+    private ArbolB database;
 
-    public check_in(Menu v1, ArbolB database1, TablaRegistro registro, TablaHabitaciones TablaHab, ArbolB checkedin) {
+    public check_in(Menu v1, ArbolB database1, TablaRegistro registro, TablaHabitaciones TablaHab, ArbolB checkedin, ArbolB database) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
@@ -33,6 +34,7 @@ public class check_in extends javax.swing.JFrame {
         this.database1 = database1;
         this.registro = registro;
         this.checkedin = checkedin;
+        this.database = database;
     }
 
     /**
@@ -111,7 +113,7 @@ public class check_in extends javax.swing.JFrame {
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         this.setVisible(false);
-        Menu ventana1 = new Menu();
+        Menu ventana1 = new Menu(database);
         ventana1.setVisible(true);
     }//GEN-LAST:event_volverActionPerformed
 
@@ -198,7 +200,8 @@ public class check_in extends javax.swing.JFrame {
                 TablaRegistro registro = new TablaRegistro();
                 TablaHabitaciones TablaHab = new TablaHabitaciones();
                 ArbolB checkedin = new ArbolB();
-                new check_in(v1, database1, registro, TablaHab, checkedin);
+                ArbolB database = new ArbolB();
+                new check_in(v1, database1, registro, TablaHab, checkedin, database);
             }
         });
     }

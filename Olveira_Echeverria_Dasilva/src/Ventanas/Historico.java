@@ -119,7 +119,7 @@ public class Historico extends javax.swing.JFrame {
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         this.setVisible(false);
-        Menu ventana1 = new Menu();
+        Menu ventana1 = new Menu(database);
         ventana1.setVisible(true);
     }//GEN-LAST:event_volverActionPerformed
 

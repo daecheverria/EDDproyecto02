@@ -21,6 +21,7 @@ public class NodoABB {
     private Lista llegada = new Lista();
     private Lista salida = new Lista();
         
+    //constructores de la clase
     public NodoABB(int data){
         this.data = data;
         this.left = null;
@@ -62,6 +63,7 @@ public class NodoABB {
         this.salida.agregarElemento(salida);
     }
 
+    //getters and setters
     public int getData() {
         return data;
     }
@@ -178,6 +180,7 @@ public class NodoABB {
         return names_return;
             
     }
+    //Metodo que permite llevar la informacion registrada en un nodo a string
     public String GetInfo(NodoABB node){
         Lista names;
         names = node.getNames();

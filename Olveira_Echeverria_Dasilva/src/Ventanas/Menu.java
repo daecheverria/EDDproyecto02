@@ -26,9 +26,10 @@ public class Menu extends javax.swing.JFrame {
     // Colocar aqui todas las estructuras de datos public static para que puedan ser utilizadas en todas las ventanas
     public Menu() {
         initComponents();
+        //inicializacion de las bases de datos
         registro = TablaRegistro.getInstancia();
-        database = new ArbolB();
         TablaHab = TablaHabitaciones.getInstancia();
+        database = new ArbolB();
         String projectPath = System.getProperty("user.dir");
         String csvFile = "Booking_hotel - historico.csv";
         Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
@@ -43,6 +44,32 @@ public class Menu extends javax.swing.JFrame {
         
         checkedin = new ArbolB();
         
+        
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+    }
+    public Menu(ArbolB database){
+        initComponents();
+        //inicializacion de las bases de datos
+        registro = TablaRegistro.getInstancia();
+        TablaHab = TablaHabitaciones.getInstancia();
+        
+        String projectPath = System.getProperty("user.dir");
+        String csvFile = "Booking_hotel - historico.csv";
+        Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
+        
+
+        database1 = new ArbolB();
+
+        String projectPath1 = System.getProperty("user.dir");
+        String csvFile1 = "Booking_hotel - reservas.csv";
+        Path csvFilePath1 = Paths.get(projectPath1).resolve(csvFile1);
+        database1.Addcomplexdatabase(database1, csvFilePath1.toString());
+        
+        checkedin = new ArbolB();
+        
+        this.database = database;
         
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -130,7 +157,7 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void HuespedesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HuespedesActionPerformed
-        Huespedes v2 = new Huespedes(this, registro);
+        Huespedes v2 = new Huespedes(this, registro, database);
         v2.setVisible(true);
     }//GEN-LAST:event_HuespedesActionPerformed
 
@@ -144,17 +171,17 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_historicoActionPerformed
 
     private void reservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reservasActionPerformed
-        Busq_Reservacion v4 = new Busq_Reservacion(this, database1);
+        Busq_Reservacion v4 = new Busq_Reservacion(this, database1, database);
         v4.setVisible(true);
     }//GEN-LAST:event_reservasActionPerformed
 
     private void check_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_inActionPerformed
-        check_in v5 = new check_in(this, database1, registro, TablaHab, checkedin);
+        check_in v5 = new check_in(this, database1, registro, TablaHab, checkedin, database);
         v5.setVisible(true);
     }//GEN-LAST:event_check_inActionPerformed
 
     private void check_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_outActionPerformed
-        check_out v6 = new check_out(this,registro, TablaHab);
+        check_out v6 = new check_out(this,registro, TablaHab, database);
         v6.setVisible(true);
     }//GEN-LAST:event_check_outActionPerformed
 

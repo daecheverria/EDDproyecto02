@@ -16,14 +16,16 @@ public class Busq_Reservacion extends javax.swing.JFrame {
 
     public static Menu v1;
     private ArbolB database1;
+    private ArbolB database;
     
-    public Busq_Reservacion(Menu v1, ArbolB database1) {
+    public Busq_Reservacion(Menu v1, ArbolB database1, ArbolB database) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.database1 = database1;
+        this.database = database;
     }
 
     /**
@@ -119,7 +121,7 @@ public class Busq_Reservacion extends javax.swing.JFrame {
 
     private void volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volverActionPerformed
         this.setVisible(false);
-        Menu ventana1 = new Menu();
+        Menu ventana1 = new Menu(database);
         ventana1.setVisible(true);
     }//GEN-LAST:event_volverActionPerformed
 
@@ -155,7 +157,8 @@ public class Busq_Reservacion extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ArbolB database1 = new ArbolB();
-                new Busq_Reservacion(v1, database1).setVisible(true);
+                ArbolB database = new ArbolB();
+                new Busq_Reservacion(v1, database1, database).setVisible(true);
             }
         });
     }
