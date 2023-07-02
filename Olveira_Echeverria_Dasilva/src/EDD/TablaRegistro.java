@@ -19,7 +19,7 @@ public class TablaRegistro {
     public HashTableR registroTabla;
     private TablaHabitaciones.HashTableH habitaciones;
     private static TablaRegistro instancia;
-
+//metodo para agregar los datos a la tabla
     private void CrearTablaReg() {
 
         TablaHabitaciones tablahab = TablaHabitaciones.getInstancia();
@@ -65,7 +65,7 @@ public class TablaRegistro {
             e.printStackTrace();
         }
     }
-
+//Metodo para que solo haya una instancia de la tabla y no se cree una nueva en cada ventana
     public static TablaRegistro getInstancia() {
         if (instancia == null) {
             instancia = new TablaRegistro();
@@ -73,13 +73,14 @@ public class TablaRegistro {
         }
         return instancia;
     }
-
+//metodos para acceder y obtener/eliminar un elemento de la tabla
     public Cliente get(String nombre, String apellido) {
         return registroTabla.get(nombre, apellido);
     }
     public void eliminar(String nombre, String apellido) {
         registroTabla.eliminar(nombre,apellido);
     }
+   //constructor de la tabla
     public static class HashTableR {
 
         private static int tamano = 300;
@@ -88,7 +89,7 @@ public class TablaRegistro {
         public HashTableR() {
             tabla = new Elemento[tamano];
         }
-
+//agregar un elemento a la tabla
         public void agregar(String nombre, String apellido, Cliente cliente) {
             int hash = getHash(nombre, apellido);
             Elemento elemento = new Elemento(nombre, apellido, cliente);
@@ -105,7 +106,7 @@ public class TablaRegistro {
                 actual.next = elemento;
             }
         }
-
+//obtener un elemento de la tabla
         public Cliente get(String nombre, String apellido) {
             int hash = getHash(nombre, apellido);
 
@@ -123,7 +124,7 @@ public class TablaRegistro {
 
             return null;
         }
-
+//obtener valor unico
         private int getHash(String nombre, String apellido) {
             int hash = (nombre + apellido).hashCode() % tamano;
             return (hash < 0) ? hash + tamano : hash;
@@ -142,7 +143,7 @@ public class TablaRegistro {
                 this.cliente = cliente;
             }
         }
-
+//eliminar elemento de la tabla
         public void eliminar(String nombre, String apellido) {
             int hash = getHash(nombre, apellido);
 

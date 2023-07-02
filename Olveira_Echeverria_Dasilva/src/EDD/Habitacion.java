@@ -14,7 +14,7 @@ public class Habitacion {
     private String tipoHabitacion;
     private String piso;
     private Boolean ocupada;
-
+//constructor
     public Habitacion(String numeroHabitacion, String tipoHabitacion, String piso, Boolean ocupada) {
         this.numeroHabitacion = numeroHabitacion;
         this.tipoHabitacion = tipoHabitacion;

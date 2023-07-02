@@ -12,7 +12,7 @@ public class Reserva {
     private String ci;
     private String ingreso;
     private String salida;
-
+//constructor
     public Reserva(String ci, String ingreso, String salida) {
         this.ci = ci;
         this.ingreso = ingreso;
