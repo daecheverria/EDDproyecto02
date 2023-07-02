@@ -44,6 +44,7 @@ public class Huespedes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Datos_Huesped_Buscado = new javax.swing.JTextArea();
+        Introduzca_apellido1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -66,8 +67,8 @@ public class Huespedes extends javax.swing.JFrame {
         jPanel1.add(Introduzaca_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 120, -1, -1));
         jPanel1.add(input_nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 210, -1));
 
-        Introduzca_apellido.setText("Introduzca el apellido del Huesped:");
-        jPanel1.add(Introduzca_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
+        Introduzca_apellido.setText("Por favor recuerde poner la inicial en mayuscula");
+        jPanel1.add(Introduzca_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 300, -1, -1));
         jPanel1.add(input_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 210, -1));
 
         jButton1.setText("Buscar");
@@ -85,6 +86,9 @@ public class Huespedes extends javax.swing.JFrame {
         jScrollPane1.setViewportView(Datos_Huesped_Buscado);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 120, 260, 190));
+
+        Introduzca_apellido1.setText("Introduzca el apellido del Huesped:");
+        jPanel1.add(Introduzca_apellido1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 670, 370));
 
@@ -142,7 +146,7 @@ public class Huespedes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TablaRegistro registro = new TablaRegistro();  // Crear una instancia de TablaRegistro si no la tienes ya
+                TablaRegistro registro = new TablaRegistro();  
                 new Huespedes(v1, registro).setVisible(true);
             }
         });
@@ -152,6 +156,7 @@ public class Huespedes extends javax.swing.JFrame {
     private javax.swing.JTextArea Datos_Huesped_Buscado;
     private javax.swing.JLabel Introduzaca_nombre;
     private javax.swing.JLabel Introduzca_apellido;
+    private javax.swing.JLabel Introduzca_apellido1;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton Volver;
     private javax.swing.JTextField input_apellido;

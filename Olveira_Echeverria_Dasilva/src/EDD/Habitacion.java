@@ -9,6 +9,7 @@ package EDD;
  * @author daniel
  */
 public class Habitacion {
+
     private String numeroHabitacion;
     private String tipoHabitacion;
     private String piso;
@@ -20,13 +21,7 @@ public class Habitacion {
         this.piso = piso;
         this.ocupada = ocupada;
     }
-     public boolean isOcupada() {
-        return ocupada;
-    }
-    
-    public void setOcupada(boolean ocupada) {
-        this.ocupada = ocupada;
-    }
+
     /**
      * @return the numeroHabitacion
      */
@@ -68,5 +63,19 @@ public class Habitacion {
     public void setPiso(String piso) {
         this.piso = piso;
     }
-    
+
+    /**
+     * @return the ocupada
+     */
+    public Boolean getOcupada() {
+        return ocupada;
+    }
+
+    /**
+     * @param ocupada the ocupada to set
+     */
+    public void setOcupada(Boolean ocupada) {
+        this.ocupada = ocupada;
+    }
+
 }

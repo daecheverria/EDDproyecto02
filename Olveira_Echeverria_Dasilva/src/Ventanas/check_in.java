@@ -5,8 +5,12 @@
 package Ventanas;
 
 import EDD.ArbolB;
+import EDD.Cliente;
+import EDD.Habitacion;
 import EDD.NodoABB;
 import EDD.Lista;
+import EDD.TablaHabitaciones;
+import EDD.TablaRegistro;
 
 /**
  *
@@ -16,14 +20,17 @@ public class check_in extends javax.swing.JFrame {
 
     public static Menu v1;
     private ArbolB database1;
-    
-    public check_in(Menu v1, ArbolB database1) {
+    private TablaRegistro registro;
+    private TablaHabitaciones TablaHab;
+
+    public check_in(Menu v1, ArbolB database1, TablaRegistro registro, TablaHabitaciones TablaHab) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.database1 = database1;
+        this.registro = registro;
     }
 
     /**
@@ -108,11 +115,11 @@ public class check_in extends javax.swing.JFrame {
 
     private void empezar_estadiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empezar_estadiaActionPerformed
         Info_hab_asig.setText("");
-        String hab= input_ci.getText().replaceAll("\\s+", "");
-        try{
+        String hab = input_ci.getText().replaceAll("\\s+", "");
+        try {
             int habitacion = Integer.parseInt(hab);
             NodoABB findings = database1.search(habitacion);
-             
+
             Lista names = findings.getNames();
             Lista lastnames = findings.getLastnames();
             Lista emails = findings.getCorreo();
@@ -121,7 +128,7 @@ public class check_in extends javax.swing.JFrame {
             Lista celulares = findings.getCelular();
             Lista llegadas = findings.getLlegada();
             Lista salidas = findings.getSalida();
-            
+
             //Variables a utilizar
             String ci = input_ci.getText();
             String name = names.getpFirst().getInfo().toString();
@@ -129,18 +136,25 @@ public class check_in extends javax.swing.JFrame {
             String email = emails.getpFirst().getInfo().toString();
             String genero = generos.getpFirst().getInfo().toString();
             String tipo_hab = tipos_hab.getpFirst().getInfo().toString();
-            String celular =  celulares.getpFirst().getInfo().toString();
+            String celular = celulares.getpFirst().getInfo().toString();
             String llegada = llegadas.getpFirst().getInfo().toString();
             String salida = salidas.getpFirst().getInfo().toString();
-            
-            
-                 
-            
-            
-            
-        }catch (Exception e){
+            TablaHab = TablaHabitaciones.getInstancia();
+            TablaHab.getHabitacionesTabla();
+            Habitacion habitacionDisponible = TablaHab.buscarHabitacionDisponible(tipo_hab);
+            if (habitacionDisponible != null) {
+                String numeroHabitacion = habitacionDisponible.getNumeroHabitacion();
+                Cliente cliente = new Cliente(ci, name, lastname, email, genero, numeroHabitacion, celular, llegada, salida);
+                registro.registroTabla.agregar(name, lastname, cliente);
+                Info_hab_asig.setText("Su habitacion es: " + numeroHabitacion);
+            } else {
+                Info_hab_asig.setText("No se encontró ninguna habitación disponible del tipo reservado");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
             Info_hab_asig.setText("El valor introducido no se encontró\nen la base de datos");
         }
+
     }//GEN-LAST:event_empezar_estadiaActionPerformed
 
     /**
@@ -174,7 +188,9 @@ public class check_in extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 ArbolB database1 = new ArbolB();
-                new check_in(v1, database1).setVisible(true);
+                TablaRegistro registro = new TablaRegistro();
+                TablaHabitaciones TablaHab = new TablaHabitaciones();
+                new check_in(v1, database1, registro, TablaHab);
             }
         });
     }

@@ -4,20 +4,27 @@
  */
 package Ventanas;
 
+import EDD.Cliente;
+import EDD.TablaHabitaciones;
+import EDD.TablaRegistro;
+
 /**
  *
  * @author Maria
  */
 public class check_out extends javax.swing.JFrame {
-    
+
     public static Menu v1;
-   
-    public check_out(Menu v1) {
+    private TablaRegistro registro;
+    private TablaHabitaciones TablaHab;
+
+    public check_out(Menu v1, TablaRegistro registro, TablaHabitaciones TablaHab1) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.registro = registro;
     }
 
     /**
@@ -78,6 +85,11 @@ public class check_out extends javax.swing.JFrame {
         jPanel1.add(input_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 230, -1));
 
         check_out.setText("Check out");
+        check_out.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                check_outActionPerformed(evt);
+            }
+        });
         jPanel1.add(check_out, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 370));
@@ -94,6 +106,25 @@ public class check_out extends javax.swing.JFrame {
         Menu ventana1 = new Menu();
         ventana1.setVisible(true);
     }//GEN-LAST:event_volverActionPerformed
+
+    private void check_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_outActionPerformed
+        Info_hab_asig.setText("");
+        String nombre = input_nombre.getText().replaceAll("\\s+", "");
+        String apellido = input_apellido.getText().replaceAll("\\s+", "");
+        try {
+            Cliente cliente = registro.get(nombre, apellido);
+            String NumHabitacion = cliente.getHabitacion();
+            TablaHab = TablaHabitaciones.getInstancia();
+            TablaHab.getHabitacionesTabla();
+            TablaHab.liberarHabitacion(NumHabitacion);
+            registro.eliminar(nombre, apellido);
+            String cedula = cliente.getCi();
+            Info_hab_asig.setText("a");
+        } catch (Exception e) {
+            System.out.println(e);
+            Info_hab_asig.setText("El nombre introducido no se encontró\nen la base de datos o ya hizo checkout");
+        }
+    }//GEN-LAST:event_check_outActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,7 +157,9 @@ public class check_out extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new check_out(v1).setVisible(true);
+                TablaRegistro registro = new TablaRegistro();
+                TablaHabitaciones TablaHab = new TablaHabitaciones();
+                new check_out(v1, registro, TablaHab);
             }
         });
     }
