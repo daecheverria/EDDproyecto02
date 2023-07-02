@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package EDD;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,16 +15,22 @@ import java.nio.file.Paths;
  * @author daniel
  */
 public class TablaRegistro {
-    private HashTable registroTabla;
-    public void CrearTablaReg() {
-        TablaHabitaciones habitaciones = new TablaHabitaciones();
-        habitaciones.CrearTablaHab();
+
+    public HashTableR registroTabla;
+    private TablaHabitaciones.HashTableH habitaciones;
+    private static TablaRegistro instancia;
+
+    private void CrearTablaReg() {
+
+        TablaHabitaciones tablahab = TablaHabitaciones.getInstancia();
+        habitaciones = tablahab.getHabitacionesTabla();
+        System.out.println(habitaciones.getClass().getSimpleName());
         String projectPath = System.getProperty("user.dir");
         String csvFile = "Booking_hotel - estado.csv";
         Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
         String line;
         boolean isFirstLine = true;
-        registroTabla = new HashTable();
+        registroTabla = new HashTableR();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath.toString()))) {
             while ((line = br.readLine()) != null) {
@@ -44,29 +51,41 @@ public class TablaRegistro {
                 String cedula = null;
 
                 if (numeroHabitacion != null && !numeroHabitacion.isEmpty()) {
-                Habitacion habitacion = habitaciones.get(numeroHabitacion);
-                
-                if (habitacion != null && !habitacion.isOcupada()) {
-                    habitacion.setOcupada(true);
-                    Cliente cliente = new Cliente(cedula, nombre, apellido, email, genero, numeroHabitacion, celular, llegada, salida);
-                    registroTabla.agregar(nombre, apellido, cliente);
-                }
+                    Habitacion habitacion = habitaciones.get(numeroHabitacion);
 
-            }
+                    if (habitacion != null && !habitacion.getOcupada()) {
+                        habitacion.setOcupada(true);
+                        Cliente cliente = new Cliente(cedula, nombre, apellido, email, genero, numeroHabitacion, celular, llegada, salida);
+                        registroTabla.agregar(nombre, apellido, cliente);
+                    }
+
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public Cliente get(String nombre, String apellido) {
-        return registroTabla.get(nombre,apellido);
+
+    public static TablaRegistro getInstancia() {
+        if (instancia == null) {
+            instancia = new TablaRegistro();
+            instancia.CrearTablaReg();
+        }
+        return instancia;
     }
-    public static class HashTable {
+
+    public Cliente get(String nombre, String apellido) {
+        return registroTabla.get(nombre, apellido);
+    }
+    public void eliminar(String nombre, String apellido) {
+        registroTabla.eliminar(nombre,apellido);
+    }
+    public static class HashTableR {
 
         private static int tamano = 300;
         private Elemento[] tabla;
 
-        public HashTable() {
+        public HashTableR() {
             tabla = new Elemento[tamano];
         }
 
@@ -123,6 +142,30 @@ public class TablaRegistro {
                 this.cliente = cliente;
             }
         }
+
+        public void eliminar(String nombre, String apellido) {
+            int hash = getHash(nombre, apellido);
+
+            if (tabla[hash] != null) {
+                Elemento actual = tabla[hash];
+                Elemento anterior = null;
+
+                while (actual != null) {
+                    if (actual.nombre.equals(nombre) && actual.apellido.equals(apellido)) {
+                        if (anterior != null) {
+                            anterior.next = actual.next;
+                        } else {
+                            tabla[hash] = actual.next;
+                        }
+                        return;
+                    }
+
+                    anterior = actual;
+                    actual = actual.next;
+                }
+            }
+        }
+
     }
 
 }

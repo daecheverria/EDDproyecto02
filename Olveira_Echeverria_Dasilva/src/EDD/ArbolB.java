@@ -104,12 +104,17 @@ public class ArbolB {
                 currentNode = currentNode.getRight();
             }
         }
+        if (currentNode == null){
+            return null;
+        }
         if (currentNode.getNames() == null) {
             return null;
         }
-        
+    
         return currentNode;
     }
+    
+    
     public void Addsimpledatabase(ArbolB arbol, String direction){
         String file = direction;
         String line;

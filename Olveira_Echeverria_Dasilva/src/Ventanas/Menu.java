@@ -4,42 +4,50 @@
  */
 package Ventanas;
 
+import EDD.TablaHabitaciones;
 import EDD.TablaRegistro;
 import EDD.ArbolB;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 /**
  *
  * @author Maria y Antonio
  */
 public class Menu extends javax.swing.JFrame {
+
     private TablaRegistro registro;
     private ArbolB database;
     private ArbolB database1;
+    private TablaHabitaciones TablaHab;
+    private ArbolB checkedin;
     
+
     // Colocar aqui todas las estructuras de datos public static para que puedan ser utilizadas en todas las ventanas
     public Menu() {
         initComponents();
-        registro = new TablaRegistro();
-        registro.CrearTablaReg();
+        registro = TablaRegistro.getInstancia();
         database = new ArbolB();
+        TablaHab = TablaHabitaciones.getInstancia();
         String projectPath = System.getProperty("user.dir");
         String csvFile = "Booking_hotel - historico.csv";
         Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
         database.Addsimpledatabase(database, csvFilePath.toString());
-        
+
         database1 = new ArbolB();
 
         String projectPath1 = System.getProperty("user.dir");
         String csvFile1 = "Booking_hotel - reservas.csv";
         Path csvFilePath1 = Paths.get(projectPath1).resolve(csvFile1);
         database1.Addcomplexdatabase(database1, csvFilePath1.toString());
+        
+        checkedin = new ArbolB();
+        
+        
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
     }
-   
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -141,12 +149,12 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_reservasActionPerformed
 
     private void check_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_inActionPerformed
-        check_in v5 = new check_in(this, database1);
+        check_in v5 = new check_in(this, database1, registro, TablaHab, checkedin);
         v5.setVisible(true);
     }//GEN-LAST:event_check_inActionPerformed
 
     private void check_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_outActionPerformed
-        check_out v6 = new check_out(this);
+        check_out v6 = new check_out(this,registro, TablaHab);
         v6.setVisible(true);
     }//GEN-LAST:event_check_outActionPerformed
 

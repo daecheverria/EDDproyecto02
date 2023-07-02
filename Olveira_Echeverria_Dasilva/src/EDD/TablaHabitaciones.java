@@ -16,14 +16,16 @@ import java.nio.file.Paths;
  * @author daniel
  */
 public class TablaHabitaciones {
-    private HashTable habitacionesTabla;
-    public void CrearTablaHab() {
+    private static TablaHabitaciones instancia;
+    private HashTableH habitacionesTabla;
+
+    private void CrearTablaHab() {
         String projectPath = System.getProperty("user.dir");
         String csvFile = "Booking_hotel - habitaciones.csv";
         Path csvFilePath = Paths.get(projectPath).resolve(csvFile);
         String line;
         boolean isFirstLine = true;
-        habitacionesTabla = new HashTable();
+        habitacionesTabla = new HashTableH();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath.toString()))) {
             while ((line = br.readLine()) != null) {
@@ -44,17 +46,61 @@ public class TablaHabitaciones {
             e.printStackTrace();
         }
     }
-
+    public static TablaHabitaciones getInstancia() {
+        if (instancia == null) {
+            instancia = new TablaHabitaciones();
+            instancia.CrearTablaHab();
+        }
+        return instancia;
+    }
+    public HashTableH getHabitacionesTabla() {
+        return habitacionesTabla;
+    }
+    
     public Habitacion get(String numeroHabitacion) {
         return habitacionesTabla.get(numeroHabitacion);
+
+    }
+     public Habitacion buscarHabitacionDisponible(String tipoHabitacion) {
+        for (Elemento elemento : habitacionesTabla.tabla) {
+            Elemento actual = elemento;
+
+            while (actual != null) {
+                if (actual.habitacion.getTipoHabitacion().equals(tipoHabitacion) && !actual.habitacion.getOcupada()) {
+                    actual.habitacion.setOcupada(true);
+                    return actual.habitacion;
+                }
+
+                actual = actual.next;
+            }
+        }
+
+        return null;
+    }
+    public Habitacion liberarHabitacion(String numeroHabitacion) {
+    for (Elemento elemento : habitacionesTabla.tabla) {
+        Elemento actual = elemento;
+
+        while (actual != null) {
+            if (actual.habitacion.getNumeroHabitacion().equals(numeroHabitacion) && actual.habitacion.getOcupada()) {
+                actual.habitacion.setOcupada(false);
+                return actual.habitacion;
+            }
+
+            actual = actual.next;
+        }
     }
 
-    public static class HashTable {
+    return null;
+}
+
+     
+    public static class HashTableH {
 
         private static int tamano = 300;
         private Elemento[] tabla;
 
-        public HashTable() {
+        public HashTableH() {
             tabla = new Elemento[tamano];
         }
 
@@ -98,7 +144,8 @@ public class TablaHabitaciones {
             return (hash < 0) ? hash + tamano : hash;
         }
 
-        private class Elemento {
+    }
+    private static class Elemento {
 
             private String key;
             private Habitacion habitacion;
@@ -109,6 +156,5 @@ public class TablaHabitaciones {
                 this.habitacion = habitacion;
             }
         }
-    }
 
 }

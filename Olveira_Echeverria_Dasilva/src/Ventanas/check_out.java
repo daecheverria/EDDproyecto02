@@ -4,20 +4,27 @@
  */
 package Ventanas;
 
+import EDD.Cliente;
+import EDD.TablaHabitaciones;
+import EDD.TablaRegistro;
+
 /**
  *
  * @author Maria
  */
 public class check_out extends javax.swing.JFrame {
-    
+
     public static Menu v1;
-   
-    public check_out(Menu v1) {
+    private TablaRegistro registro;
+    private TablaHabitaciones TablaHab;
+
+    public check_out(Menu v1, TablaRegistro registro, TablaHabitaciones TablaHab1) {
         initComponents();
         this.v1 = v1;
         v1.setVisible(false);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.registro = registro;
     }
 
     /**
@@ -39,6 +46,7 @@ public class check_out extends javax.swing.JFrame {
         introduzca_apellido = new javax.swing.JLabel();
         input_apellido = new javax.swing.JTextField();
         check_out = new javax.swing.JButton();
+        Introduzca_apellido = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -67,8 +75,10 @@ public class check_out extends javax.swing.JFrame {
         });
         jPanel1.add(volver, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 310, -1, -1));
 
+        Info_hab_asig.setEditable(false);
         Info_hab_asig.setColumns(20);
         Info_hab_asig.setRows(5);
+        Info_hab_asig.setFocusable(false);
         jScrollPane1.setViewportView(Info_hab_asig);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 230, 180));
@@ -78,7 +88,15 @@ public class check_out extends javax.swing.JFrame {
         jPanel1.add(input_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 230, -1));
 
         check_out.setText("Check out");
-        jPanel1.add(check_out, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, -1, -1));
+        check_out.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                check_outActionPerformed(evt);
+            }
+        });
+        jPanel1.add(check_out, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, -1, -1));
+
+        Introduzca_apellido.setText("(Por favor incluir mayusculas respectivas)");
+        jPanel1.add(Introduzca_apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, 20));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 370));
 
@@ -94,6 +112,26 @@ public class check_out extends javax.swing.JFrame {
         Menu ventana1 = new Menu();
         ventana1.setVisible(true);
     }//GEN-LAST:event_volverActionPerformed
+
+    private void check_outActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_outActionPerformed
+        Info_hab_asig.setText("");
+        String nombre = input_nombre.getText().replaceAll("\\s+", "");
+        String apellido = input_apellido.getText().replaceAll("\\s+", "");
+        try {
+            Cliente cliente = registro.get(nombre, apellido);
+            String NumHabitacion = cliente.getHabitacion();
+            TablaHab = TablaHabitaciones.getInstancia();
+            TablaHab.getHabitacionesTabla();
+            TablaHab.liberarHabitacion(NumHabitacion);
+            registro.eliminar(nombre, apellido);
+            String cedula = cliente.getCi();
+            
+            Info_hab_asig.setText("Se ha realizado el check out del huesped exitosamente");
+        } catch (Exception e) {
+            System.out.println(e);
+            Info_hab_asig.setText("El nombre introducido no se encontró\nen la base de datos o ya hizo check-out");
+        }
+    }//GEN-LAST:event_check_outActionPerformed
 
     /**
      * @param args the command line arguments
@@ -126,13 +164,16 @@ public class check_out extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new check_out(v1).setVisible(true);
+                TablaRegistro registro = new TablaRegistro();
+                TablaHabitaciones TablaHab = new TablaHabitaciones();
+                new check_out(v1, registro, TablaHab);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Info_hab_asig;
+    private javax.swing.JLabel Introduzca_apellido;
     private javax.swing.JLabel TITULO;
     private javax.swing.JButton check_out;
     private javax.swing.JTextField input_apellido;
